@@ -21,7 +21,7 @@ public class QueueConfig {
     static final String topicExchangeName = "budget-exchange";
     static final String queueName = "fnb-transactions-pers";
     static final String routingKey = "fnb.trxn.#";
-    static final String IP = "127.0.0.53";
+    static final String IP = "127.0.0.1";
     static final int port = 5672;
     
     @Bean

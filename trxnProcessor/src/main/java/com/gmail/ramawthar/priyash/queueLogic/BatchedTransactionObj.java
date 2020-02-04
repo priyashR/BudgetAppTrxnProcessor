@@ -9,7 +9,7 @@ public class BatchedTransactionObj {
 	private String reference;
 	private String account;
 	private String categoryTree;   
-	private BigDecimal amount; 
+	private String amount; 
 	private String bacth;
 	
 	public BatchedTransactionObj() {
@@ -48,11 +48,11 @@ public class BatchedTransactionObj {
 		this.categoryTree = categoryTree;
 	}
 
-	public BigDecimal getAmount() {
+	public String getAmount() {
 		return amount;
 	}
 
-	public void setAmount(BigDecimal amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 

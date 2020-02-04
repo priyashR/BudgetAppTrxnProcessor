@@ -2,6 +2,7 @@ package com.gmail.ramawthar.priyash.queueLogic;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.StringTokenizer;
 
 import com.gmail.ramawthar.priyash.model.BatchedTransaction;
 import com.gmail.ramawthar.priyash.model.Transaction;
@@ -25,6 +26,34 @@ public class ProcessBatchedTransactions {
 	
 	private void loadTransactionObj(){
 		System.out.println(transactionLine);
+		StringTokenizer st = new StringTokenizer(transactionLine,",");  
+		int count = 0;
+    	while (st.hasMoreTokens()) {  
+    		count++;
+
+    		if (count==1){st.nextToken();}//BACTH keyword
+    		else if (count==2){batchedTransactionObj.setTranDate(st.nextToken());}//tranDate
+    		else if (count==3){batchedTransactionObj.setReference(st.nextToken());}//reference
+    		else if (count==4){batchedTransactionObj.setAccount(st.nextToken());}//account
+    		else if (count==5){
+    			String catTree = st.nextToken();
+
+    			//TO DO : CAll the get categoryTree service from the category service
+    			//Pass the current cat tree and the reference
+    			batchedTransactionObj.setCategoryTree(catTree);
+    			
+    		}//categoryTree
+    		else if (count==6){batchedTransactionObj.setAmount(st.nextToken());}//amount
+    		else if (count==7){batchedTransactionObj.setBacth(st.nextToken());}//batch
+        }
+    	
+    	if (batchedTransactionObj.getCategoryTree().equalsIgnoreCase("UNCATEGORISED")){
+    		if (batchedTransactionObj.getAmount().startsWith("-")){
+    			batchedTransactionObj.setCategoryTree("EXPENSE");
+    		}
+    		else{batchedTransactionObj.setCategoryTree("INCOME");};
+    	}
+    	System.out.println(batchedTransactionObj.toString());
 	}
 	
 	private void pushTransactionToDB(){
@@ -34,7 +63,7 @@ public class ProcessBatchedTransactions {
 																	   batchedTransactionObj.getReference(), 
 																	   batchedTransactionObj.getAccount(), 
 																	   batchedTransactionObj.getCategoryTree(), 
-																	   new BigDecimal(batchedTransactionObj.getAmount().toString()),
+																	   new BigDecimal(batchedTransactionObj.getAmount()),
 																	   batchedTransactionObj.getBacth());
 		
 		

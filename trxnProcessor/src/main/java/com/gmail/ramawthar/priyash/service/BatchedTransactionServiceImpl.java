@@ -1,0 +1,38 @@
+package com.gmail.ramawthar.priyash.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gmail.ramawthar.priyash.model.BatchedTransaction;
+import com.gmail.ramawthar.priyash.repository.BatchedTransactionRepository;
+
+@Service
+public class BatchedTransactionServiceImpl implements BatchedTransactionService{
+	
+	private BatchedTransactionRepository batchedtransactionRepository;
+	
+	@Autowired
+	public void setBatchedTransactionRepository(BatchedTransactionRepository batchedtransactionRepository) {
+		this.batchedtransactionRepository = batchedtransactionRepository;
+	}
+
+	@Override
+	public BatchedTransaction save(BatchedTransaction batchedtransaction) {
+		return batchedtransactionRepository.save(batchedtransaction);
+	}
+
+	@Override
+	public void delete(BatchedTransaction batchedtransaction) {
+		batchedtransactionRepository.delete(batchedtransaction);
+
+	}
+
+	@Override
+	public List<BatchedTransaction> findByTranDate(String tranDate) {
+		// TODO Auto-generated method stub
+		return batchedtransactionRepository.findByTranDate(tranDate);
+	}
+
+}

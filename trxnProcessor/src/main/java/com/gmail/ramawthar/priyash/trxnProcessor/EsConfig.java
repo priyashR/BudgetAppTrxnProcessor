@@ -13,6 +13,8 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
+import com.gmail.ramawthar.priyash.service.BatchedTransactionService;
+import com.gmail.ramawthar.priyash.service.BatchedTransactionServiceImpl;
 import com.gmail.ramawthar.priyash.service.TransactionService;
 import com.gmail.ramawthar.priyash.service.TransactionServiceImpl;
 
@@ -67,6 +69,11 @@ public class EsConfig {
     @Bean
     public TransactionService TransactionServiceBean() {
         return new TransactionServiceImpl();
+    }
+    
+    @Bean
+    public BatchedTransactionService BatchedTransactionServiceBean() {
+        return new BatchedTransactionServiceImpl();
     }
     
 }

@@ -18,8 +18,9 @@ public class Receiver {
     BatchedTransactionService batchedTransactionService;
     
     public void receiveMessage(Object message) {
-        System.out.println("Received <" + message.toString() + ">");
         
+    	System.out.println("Received <" + message.toString() + ">");
+    	
         if (message.toString().startsWith("BATCH")){
         	ProcessBatchedTransactions pbt = new ProcessBatchedTransactions(message.toString(), batchedTransactionService);
         	pbt.action();

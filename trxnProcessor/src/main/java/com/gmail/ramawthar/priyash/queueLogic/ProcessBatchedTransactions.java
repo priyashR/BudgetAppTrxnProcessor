@@ -20,7 +20,7 @@ public class ProcessBatchedTransactions {
 	
 	public void action(){
 		loadTransactionObj();
-		//pushTransactionToDB();
+		pushTransactionToDB();
 		
 	}
 	
@@ -58,7 +58,7 @@ public class ProcessBatchedTransactions {
 	
 	private void pushTransactionToDB(){
 		
-		BatchedTransaction batchedTransaction = new BatchedTransaction(batchedTransactionObj.getTranDate()+batchedTransactionObj.getCategoryTree()+Calendar.getInstance().getTimeInMillis(),
+		BatchedTransaction batchedTransaction = new BatchedTransaction(batchedTransactionObj.getBacth()+batchedTransactionObj.getTranDate()+batchedTransactionObj.getCategoryTree()+Calendar.getInstance().getTimeInMillis(),
 																	   batchedTransactionObj.getTranDate(), 
 																	   batchedTransactionObj.getReference(), 
 																	   batchedTransactionObj.getAccount(), 

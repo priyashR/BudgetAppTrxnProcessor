@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "batched-transactions", type = "_doc")
+//@Document(indexName = "batched-transactions", type = "_doc")
+@Document(indexName = "batched-trxns", type = "_doc")
 public class BatchedTransaction {
 
 	@Id

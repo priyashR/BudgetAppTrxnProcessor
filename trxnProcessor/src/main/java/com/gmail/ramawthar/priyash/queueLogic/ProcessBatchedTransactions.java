@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 import com.gmail.ramawthar.priyash.model.BatchedTransaction;
 import com.gmail.ramawthar.priyash.model.Transaction;
 import com.gmail.ramawthar.priyash.service.BatchedTransactionService;
+import org.springframework.web.client.RestTemplate;
 
 public class ProcessBatchedTransactions {
 	String transactionLine;
@@ -35,25 +36,34 @@ public class ProcessBatchedTransactions {
     		else if (count==2){batchedTransactionObj.setTranDate(st.nextToken());}//tranDate
     		else if (count==3){batchedTransactionObj.setReference(st.nextToken());}//reference
     		else if (count==4){batchedTransactionObj.setAccount(st.nextToken());}//account
-    		else if (count==5){
-    			String catTree = st.nextToken();
-
-    			//TO DO : CAll the get categoryTree service from the category service
-    			//Pass the current cat tree and the reference
-    			batchedTransactionObj.setCategoryTree(catTree);
-    			
-    		}//categoryTree
+    		else if (count==5){batchedTransactionObj.setCategoryTree(st.nextToken());}//categoryTree
     		else if (count==6){batchedTransactionObj.setAmount(st.nextToken());}//amount
     		else if (count==7){batchedTransactionObj.setBacth(st.nextToken());}//batch
         }
     	
     	if (batchedTransactionObj.getCategoryTree().equalsIgnoreCase("UNCATEGORISED")){
     		if (batchedTransactionObj.getAmount().startsWith("-")){
-    			batchedTransactionObj.setCategoryTree("EXPENSE");
+    			batchedTransactionObj.setReference("expenseUNCAT");
     		}
-    		else{batchedTransactionObj.setCategoryTree("INCOME");};
+    		else{batchedTransactionObj.setReference("incomeUNCAT");};
     	}
+    	String tranType = "I";
+    	if (batchedTransactionObj.getAmount().startsWith("-")){
+    		tranType = "E";
+		}
+    	
+    	//call the get category family here
+    	//batchedTransactionObj.setCategoryTree
+    	final String uri = "http://127.0.0.1:9875/fetchPath";
+    	FetchPathInput fip = new FetchPathInput();
+    	fip.setCategory(batchedTransactionObj.getReference());
+    	fip.setTranType(tranType);
+    	
+    	RestTemplate restTemplate = new RestTemplate();
+    	
+    	String categoryFamily= restTemplate.postForObject(uri, fip, String.class);
     	System.out.println(batchedTransactionObj.toString());
+    	System.out.println("resuly: " +categoryFamily);
 	}
 	
 	private void pushTransactionToDB(){

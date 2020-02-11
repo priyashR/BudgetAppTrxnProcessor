@@ -37,6 +37,7 @@ public class BatchedTransaction {
 		this.reference = reference;
 		this.account = account;
 		this.categoryTree = categoryTree;
+		setLevels();
 		this.amount = amount;
 		this.batch = batch;
 	}
@@ -213,7 +214,7 @@ public class BatchedTransaction {
 	}
 	
 	private void setLevels(){
-  		StringTokenizer st = new StringTokenizer(categoryTree,"/");  
+  		StringTokenizer st = new StringTokenizer(this.categoryTree,"/");  
 		int count = 0;
 		String maxMember = "";
     	while (st.hasMoreTokens()) {

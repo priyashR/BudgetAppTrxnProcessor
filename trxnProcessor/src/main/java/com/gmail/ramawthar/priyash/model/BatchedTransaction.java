@@ -1,6 +1,7 @@
 package com.gmail.ramawthar.priyash.model;
 
 import java.math.BigDecimal;
+import java.util.StringTokenizer;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -88,6 +89,7 @@ public class BatchedTransaction {
 
 	public void setCategoryTree(String categoryTree) {
 		this.categoryTree = categoryTree;
+		setLevels();
 	}
 
 
@@ -211,7 +213,51 @@ public class BatchedTransaction {
 	}
 	
 	private void setLevels(){
-		
+  		StringTokenizer st = new StringTokenizer(categoryTree,"/");  
+		int count = 0;
+		String maxMember = "";
+    	while (st.hasMoreTokens()) {
+
+    		if (count==0){setLevel0(st.nextToken());
+			   maxMember = getLevel0();}
+    		else if (count==1){setLevel1(st.nextToken());
+    						   maxMember = getLevel1();}
+    		else if (count==2){setLevel2(st.nextToken());
+			   maxMember = getLevel2();}
+    		else if (count==3){setLevel3(st.nextToken());
+			   maxMember = getLevel3();}
+    		else if (count==4){setLevel4(st.nextToken());
+			   maxMember = getLevel4();}
+    		else if (count==5){setLevel5(st.nextToken());
+			   maxMember = getLevel5();}
+    		else if (count==6){setLevel6(st.nextToken());
+			   maxMember = getLevel6();}
+    		else if (count==7){setLevel7(st.nextToken());
+			   maxMember = getLevel7();}
+    		else if (count==8){setLevel8(st.nextToken());
+			   maxMember = getLevel8();}
+    		else if (count==9){setLevel9(st.nextToken());
+			   maxMember = getLevel9();}
+    		count++;
+        }
+    	
+    	if (count<10){
+    		
+    		while (count<10){
+	    		if (count==0){setLevel0(maxMember);}
+	    		else if (count==1){setLevel1(maxMember);}
+	    		else if (count==2){setLevel2(maxMember);}
+	    		else if (count==3){setLevel3(maxMember);}
+	    		else if (count==4){setLevel4(maxMember);}
+	    		else if (count==5){setLevel5(maxMember);}
+	    		else if (count==6){setLevel6(maxMember);}
+	    		else if (count==7){setLevel7(maxMember);}
+	    		else if (count==8){setLevel8(maxMember);}
+	    		else if (count==9){setLevel9(maxMember);}
+	    		count++;
+    		}
+    		
+    	}
 		
 	}
 	

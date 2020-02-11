@@ -62,8 +62,9 @@ public class ProcessBatchedTransactions {
     	RestTemplate restTemplate = new RestTemplate();
     	
     	String categoryFamily= restTemplate.postForObject(uri, fip, String.class);
+    	batchedTransactionObj.setCategoryTree(categoryFamily);
     	System.out.println(batchedTransactionObj.toString());
-    	System.out.println("resuly: " +categoryFamily);
+    	System.out.println("result: " +categoryFamily);
 	}
 	
 	private void pushTransactionToDB(){

@@ -53,6 +53,7 @@ public class ProcessBatchedTransactions {
 		}
     	
     	//call the get category family here
+    	/*
     	//batchedTransactionObj.setCategoryTree
     	final String uri = "http://127.0.0.1:9875/fetchPath";
     	FetchPathInput fip = new FetchPathInput();
@@ -61,7 +62,8 @@ public class ProcessBatchedTransactions {
     	
     	RestTemplate restTemplate = new RestTemplate();
     	
-    	String categoryFamily= restTemplate.postForObject(uri, fip, String.class);
+    	String categoryFamily= restTemplate.postForObject(uri, fip, String.class);*/
+    	String categoryFamily= batchedTransactionObj.getReference();
     	batchedTransactionObj.setCategoryTree(categoryFamily);
     	System.out.println(batchedTransactionObj.toString());
     	System.out.println("result: " +categoryFamily);

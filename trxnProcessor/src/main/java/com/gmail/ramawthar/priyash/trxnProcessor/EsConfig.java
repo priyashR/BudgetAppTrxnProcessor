@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
+import org.springframework.stereotype.Component;
 
 import com.gmail.ramawthar.priyash.service.BatchedTransactionService;
 import com.gmail.ramawthar.priyash.service.BatchedTransactionServiceImpl;

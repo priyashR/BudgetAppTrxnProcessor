@@ -3,12 +3,14 @@ package com.gmail.ramawthar.priyash.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.gmail.ramawthar.priyash.model.Transaction;
 import com.gmail.ramawthar.priyash.repository.TransactionRepository;
 
 @Service
+@Component("trxnSrvc")
 public class TransactionServiceImpl implements TransactionService {
 	
 	private TransactionRepository transactionRepository;

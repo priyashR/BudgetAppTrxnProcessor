@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.gmail.ramawthar.priyash.rabbit"})
+//@ComponentScan({"com.gmail.ramawthar.priyash.rabbit"}) - not going to use the queues
 @ComponentScan({"com.gmail.ramawthar.priyash.trxnProcessor"})
 public class TrxnProcessorApplication {
     

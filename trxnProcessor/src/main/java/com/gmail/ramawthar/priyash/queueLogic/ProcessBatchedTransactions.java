@@ -71,13 +71,13 @@ public class ProcessBatchedTransactions {
 	
 	private void pushTransactionToDB(){
 		
-		BatchedTransaction batchedTransaction = new BatchedTransaction(batchedTransactionObj.getBacth()+batchedTransactionObj.getTranDate()+batchedTransactionObj.getCategoryTree()+Calendar.getInstance().getTimeInMillis(),
+		BatchedTransaction batchedTransaction = new BatchedTransaction(batchedTransactionObj.getBatch()+batchedTransactionObj.getTranDate()+batchedTransactionObj.getCategoryTree()+Calendar.getInstance().getTimeInMillis(),
 																	   batchedTransactionObj.getTranDate(), 
 																	   batchedTransactionObj.getReference(), 
 																	   batchedTransactionObj.getAccount(), 
 																	   batchedTransactionObj.getCategoryTree(), 
 																	   new BigDecimal(batchedTransactionObj.getAmount()),
-																	   batchedTransactionObj.getBacth());
+																	   batchedTransactionObj.getBatch());
 		
 		
 		batchedTransactionService.save(batchedTransaction);

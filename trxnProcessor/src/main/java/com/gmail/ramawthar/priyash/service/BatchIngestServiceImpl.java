@@ -22,6 +22,7 @@ import com.gmail.ramawthar.priyash.queueLogic.ProcessTransactions;
 public class BatchIngestServiceImpl implements BatchIngestService {
 
     public String processCSVFile(MultipartFile file){
+    	System.out.println("hi");
     	String status = "Empty file!";
     	if (!(file.isEmpty())){
     		status = "File is being processed";
@@ -35,7 +36,7 @@ public class BatchIngestServiceImpl implements BatchIngestService {
 	    	     while ((line = br.readLine()) != null) {
 	    	          result.add(line);
 	    	          System.out.println(line);
-	    	          pushToDB(line);
+	    	          //PR - to put back 220823 - pushToDB(line);
 	    	          //pushToQueue(line);
 	    	          /*TO DO: Push to elastic here*/
 	    	     }

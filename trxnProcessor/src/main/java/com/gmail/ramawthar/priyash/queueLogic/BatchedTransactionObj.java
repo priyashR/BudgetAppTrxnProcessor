@@ -56,7 +56,7 @@ public class BatchedTransactionObj {
 		this.amount = amount;
 	}
 
-	public String getBacth() {
+	public String getBatch() {
 		return bacth;
 	}
 

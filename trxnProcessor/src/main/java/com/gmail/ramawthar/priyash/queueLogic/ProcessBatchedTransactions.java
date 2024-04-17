@@ -38,7 +38,7 @@ public class ProcessBatchedTransactions {
     		else if (count==4){batchedTransactionObj.setAccount(st.nextToken());}//account
     		else if (count==5){batchedTransactionObj.setCategoryTree(st.nextToken());}//categoryTree
     		else if (count==6){batchedTransactionObj.setAmount(st.nextToken());}//amount
-    		else if (count==7){batchedTransactionObj.setBacth(st.nextToken());}//batch
+    		else if (count==7){batchedTransactionObj.setUser(transactionLine);}//user
         }
     	
     	if (batchedTransactionObj.getCategoryTree().equalsIgnoreCase("UNCATEGORISED")){
@@ -71,13 +71,13 @@ public class ProcessBatchedTransactions {
 	
 	private void pushTransactionToDB(){
 		
-		BatchedTransaction batchedTransaction = new BatchedTransaction(batchedTransactionObj.getBatch()+batchedTransactionObj.getTranDate()+batchedTransactionObj.getCategoryTree()+Calendar.getInstance().getTimeInMillis(),
+		BatchedTransaction batchedTransaction = new BatchedTransaction(batchedTransactionObj.getUser()+batchedTransactionObj.getTranDate()+batchedTransactionObj.getCategoryTree()+Calendar.getInstance().getTimeInMillis(),
 																	   batchedTransactionObj.getTranDate(), 
 																	   batchedTransactionObj.getReference(), 
 																	   batchedTransactionObj.getAccount(), 
 																	   batchedTransactionObj.getCategoryTree(), 
 																	   new BigDecimal(batchedTransactionObj.getAmount()),
-																	   batchedTransactionObj.getBatch());
+																	   batchedTransactionObj.getUser());
 		
 		
 		batchedTransactionService.save(batchedTransaction);

@@ -17,7 +17,7 @@ public class BatchedTransaction {
 	private String account;
 	private String categoryTree;   
 	private BigDecimal amount; 
-	private String batch;
+	private String user;
 	private String level0;
 	private String level1;
 	private String level2;
@@ -39,7 +39,7 @@ public class BatchedTransaction {
 		this.categoryTree = categoryTree;
 		setLevels();
 		this.amount = amount;
-		this.batch = batch;
+		this.user = batch;
 	}
 
 
@@ -105,12 +105,12 @@ public class BatchedTransaction {
 
 
 	public String getBatch() {
-		return batch;
+		return user;
 	}
 
 
 	public void setBatch(String bacth) {
-		this.batch = bacth;
+		this.user = bacth;
 	}
 
 

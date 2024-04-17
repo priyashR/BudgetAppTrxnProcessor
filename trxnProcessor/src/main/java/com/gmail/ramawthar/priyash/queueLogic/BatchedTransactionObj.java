@@ -10,7 +10,7 @@ public class BatchedTransactionObj {
 	private String account;
 	private String categoryTree;   
 	private String amount; 
-	private String bacth;
+	private String user;
 	
 	public BatchedTransactionObj() {
 		super();
@@ -56,12 +56,12 @@ public class BatchedTransactionObj {
 		this.amount = amount;
 	}
 
-	public String getBatch() {
-		return bacth;
+	public String getUser() {
+		return user;
 	}
 
-	public void setBacth(String bacth) {
-		this.bacth = bacth;
+	public void setUser(String bacth) {
+		this.user = bacth;
 	}
 	
 	

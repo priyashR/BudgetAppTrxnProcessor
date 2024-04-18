@@ -25,7 +25,7 @@ public class ProcessBatchedTransactions {
 	
 	public void action(){
 		loadTransactionObj();
-		pushTransactionToDB();
+		//pushTransactionToDB();
 		
 	}
 	
@@ -33,11 +33,11 @@ public class ProcessBatchedTransactions {
 		System.out.println(transactionLine);
 		StringTokenizer st = new StringTokenizer(transactionLine,",");  
 		int count = 0;
-    	while (st.hasMoreTokens()) {  
+    	while ((st.hasMoreTokens()) & (count<5)) {  
     		count++;
 
     		if (count==1){batchedTransactionObj.setTranDate(st.nextToken());}//tranDate 
-    		else if (count==2){batchedTransactionObj.setAmount(st.nextToken());}//amount
+    		else if (count==2){batchedTransactionObj.setAmount(st.nextToken().trim());}//amount
     		else if (count==3){}//ignore balance
     		else if (count==4){batchedTransactionObj.setReference(st.nextToken());}//reference
     		//else if (count==5){batchedTransactionObj.setCategoryTree(st.nextToken());}//categoryTree
@@ -54,13 +54,14 @@ public class ProcessBatchedTransactions {
 		}
 		else{batchedTransactionObj.setReference("incomeUNCAT");};
     	
-    	String tranType = "I";
+		/*
+		String tranType = "I";
     	if (batchedTransactionObj.getAmount().startsWith("-")){
     		tranType = "E";
 		}
     	
     	//call the get category family here
-    	/*
+    	
     	//batchedTransactionObj.setCategoryTree
     	final String uri = "http://127.0.0.1:9875/fetchPath";
     	FetchPathInput fip = new FetchPathInput();
@@ -72,8 +73,8 @@ public class ProcessBatchedTransactions {
     	String categoryFamily= restTemplate.postForObject(uri, fip, String.class);*/
     	String categoryFamily= batchedTransactionObj.getReference();
     	batchedTransactionObj.setCategoryTree(categoryFamily);
-    	System.out.println(batchedTransactionObj.toString());
-    	System.out.println("result: " +categoryFamily);
+    	System.out.println(batchedTransactionObj.getAccount()+" "+batchedTransactionObj.getAmount()+" "+batchedTransactionObj.getCategoryTree()+" " +batchedTransactionObj.getUser());
+    	//System.out.println("result: " +categoryFamily);
 	}
 	
 	private void pushTransactionToDB(){

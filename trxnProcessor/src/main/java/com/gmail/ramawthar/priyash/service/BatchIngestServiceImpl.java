@@ -82,11 +82,12 @@ public class BatchIngestServiceImpl implements BatchIngestService {
     	
         else{
         	
-        	System.out.println("Received <" + processedLine + " "+ user+ " "+ account + ">");
+        	//System.out.println("Received <" + processedLine + " "+ user+ " "+ account + ">");
+        	
         //System.out.println("Account = "+account);
         //System.out.println("User = "+user);
-    	// ProcessBatchedTransactions pbt = new ProcessBatchedTransactions(processedLine.toString(), batchedTransactionService, user, account);
-        //pbt.action();
+    	ProcessBatchedTransactions pbt = new ProcessBatchedTransactions(processedLine.toString(), batchedTransactionService, user, account);
+        pbt.action();
         }
         
 	}

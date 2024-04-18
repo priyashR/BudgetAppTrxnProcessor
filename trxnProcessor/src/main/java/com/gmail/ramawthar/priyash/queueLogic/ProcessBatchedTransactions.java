@@ -13,10 +13,14 @@ public class ProcessBatchedTransactions {
 	String transactionLine;
 	BatchedTransactionObj batchedTransactionObj = new BatchedTransactionObj();
 	BatchedTransactionService batchedTransactionService;
+	String trxnUser = "";
+	String trxnAccount = "";
 
-	public ProcessBatchedTransactions(String transaction, BatchedTransactionService batchedTransactionService) {
+	public ProcessBatchedTransactions(String transaction, BatchedTransactionService batchedTransactionService, String user, String account) {
 		this.batchedTransactionService = batchedTransactionService;
 		this.transactionLine = transaction;
+		this.trxnUser = user;
+		this.trxnAccount = account;
 	}
 	
 	public void action(){
@@ -32,21 +36,24 @@ public class ProcessBatchedTransactions {
     	while (st.hasMoreTokens()) {  
     		count++;
 
-    		if (count==1){st.nextToken();}//BACTH keyword
-    		else if (count==2){batchedTransactionObj.setTranDate(st.nextToken());}//tranDate
-    		else if (count==3){batchedTransactionObj.setReference(st.nextToken());}//reference
-    		else if (count==4){batchedTransactionObj.setAccount(st.nextToken());}//account
-    		else if (count==5){batchedTransactionObj.setCategoryTree(st.nextToken());}//categoryTree
-    		else if (count==6){batchedTransactionObj.setAmount(st.nextToken());}//amount
-    		else if (count==7){batchedTransactionObj.setUser(transactionLine);}//user
+    		if (count==1){batchedTransactionObj.setTranDate(st.nextToken());}//tranDate 
+    		else if (count==2){batchedTransactionObj.setAmount(st.nextToken());}//amount
+    		else if (count==3){}//ignore balance
+    		else if (count==4){batchedTransactionObj.setReference(st.nextToken());}//reference
+    		//else if (count==5){batchedTransactionObj.setCategoryTree(st.nextToken());}//categoryTree
+    		//else if (count==6){batchedTransactionObj.setAccount(st.nextToken());}//account
+    		//else if (count==7){batchedTransactionObj.setUser(transactionLine);}//user
         }
     	
-    	if (batchedTransactionObj.getCategoryTree().equalsIgnoreCase("UNCATEGORISED")){
-    		if (batchedTransactionObj.getAmount().startsWith("-")){
-    			batchedTransactionObj.setReference("expenseUNCAT");
-    		}
-    		else{batchedTransactionObj.setReference("incomeUNCAT");};
-    	}
+    	batchedTransactionObj.setCategoryTree("UNCATEGORISED");
+    	batchedTransactionObj.setAccount(this.trxnAccount);
+    	batchedTransactionObj.setUser(this.trxnUser);
+    	
+		if (batchedTransactionObj.getAmount().startsWith("-")){
+			batchedTransactionObj.setReference("expenseUNCAT");
+		}
+		else{batchedTransactionObj.setReference("incomeUNCAT");};
+    	
     	String tranType = "I";
     	if (batchedTransactionObj.getAmount().startsWith("-")){
     		tranType = "E";

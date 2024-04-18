@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,6 +21,10 @@ import com.gmail.ramawthar.priyash.queueLogic.ProcessTransactions;
 
 @Service
 public class BatchIngestServiceImpl implements BatchIngestService {
+	
+	private String user;
+	private String account;
+	private boolean processFile = false;
 
     public String processCSVFile(MultipartFile file){
     	System.out.println("hi");
@@ -35,9 +40,8 @@ public class BatchIngestServiceImpl implements BatchIngestService {
 	    	     br = new BufferedReader(new InputStreamReader(is));
 	    	     while ((line = br.readLine()) != null) {
 	    	          result.add(line);
-	    	          System.out.println(line);
-	    	          //PR - to put back 220823 - pushToDB(line);
-	    	          //pushToQueue(line);
+	    	          //System.out.println(line);
+	    	          pushToDB(line);
 	    	          /*TO DO: Push to elastic here*/
 	    	     }
 	  
@@ -60,15 +64,30 @@ public class BatchIngestServiceImpl implements BatchIngestService {
     @Qualifier("BatchTrxnSrvc")
     BatchedTransactionService batchedTransactionService;
 	private void pushToDB(String processedLine){
-    	System.out.println("Received <" + processedLine + ">");
     	
-        if (processedLine.startsWith("BATCH")){
-        	ProcessBatchedTransactions pbt = new ProcessBatchedTransactions(processedLine.toString(), batchedTransactionService);
-        	pbt.action();
-        }
+    	if (processFile == false) {
+    		String value;
+        	StringTokenizer st = new StringTokenizer(processedLine,",");
+        	
+        	while (st.hasMoreTokens()) {
+        		value = st.nextToken();
+        		//System.out.println(value);
+        		if (value.equalsIgnoreCase("Name:")){user = st.nextToken();}
+        		else if (value.equalsIgnoreCase("Account:")){account = st.nextToken();}
+        		else if (value.equalsIgnoreCase("Date")){processFile = true;}
+        		
+        	}
+    		
+    	}
+    	
         else{
-        ProcessTransactions pt = new ProcessTransactions(processedLine.toString(), transactionService);
-        pt.action();
+        	
+        	System.out.println("Received <" + processedLine + " "+ user+ " "+ account + ">");
+        //System.out.println("Account = "+account);
+        //System.out.println("User = "+user);
+    	// ProcessBatchedTransactions pbt = new ProcessBatchedTransactions(processedLine.toString(), batchedTransactionService, user, account);
+        //pbt.action();
         }
+        
 	}
 }
